@@ -28,19 +28,19 @@ public class Program {
         System.out.print("Birth date (DD/MM/YYYY): ");
         Date birthDate = sdf.parse(sc.nextLine());
 
-        Client client = new Client(clientName, email, birthDate);
-
         System.out.println("Enter order data:");
         System.out.print("Status: ");
         String status = sc.nextLine();
         Date moment = new Date();
 
-        Order order = new Order(moment, OrderStatus.valueOf(status));
+        Order order = new Order(moment, OrderStatus.valueOf(status), new Client(clientName, email, birthDate));
 
         System.out.print("How many items to this order? ");
         int n = sc.nextInt();
 
-        for (int i=0;i<n;i++) {
+        for (int i=1;i<=n;i++) {
+            sc.nextLine();
+            System.out.println("Enter #" + i + " item data:");
             System.out.print("Product name: ");
             String productName = sc.nextLine();
             System.out.print("Product price: ");

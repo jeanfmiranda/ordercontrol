@@ -10,6 +10,8 @@ import java.util.List;
 public class Order {
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+
     private Date moment;
     private OrderStatus status;
 
@@ -20,9 +22,10 @@ public class Order {
     public Order() {
 
     }
-    public Order(Date moment, OrderStatus status) {
+    public Order(Date moment, OrderStatus status, Client client) {
         this.moment = moment;
         this.status = status;
+        this.client = client;
     }
 
     public Date getMoment() {
@@ -71,15 +74,15 @@ public class Order {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ORDER SUMMARY:\n");
+        sb.append("\nORDER SUMMARY:\n");
         sb.append("Order moment: " + sdf.format(moment) + "\n");
         sb.append("Order status: " + status + "\n");
-        sb.append("Client: " + client.getName() + " (" + client.getBirthDate() + ") - " + client.getEmail() + "\n");
+        sb.append("Client: " + client.getName() + " (" + sdf2.format(client.getBirthDate()) + ") - " + client.getEmail() + "\n");
         sb.append("Order items:\n");
         for (OrderItem o : items) {
-            sb.append(o.getProduct().getName() + ", $" + String.format("%.2d",o.getPrice()) + ", Quantity: " + o.getQuantity() + ", Subtotal: $" + String.format("%.2d", o.subTotal()) + "\n");
+            sb.append(o.getProduct().getName() + ", $" + String.format("%.2f",o.getPrice()) + ", Quantity: " + o.getQuantity() + ", Subtotal: $" + String.format("%.2f", o.subTotal()) + "\n");
         }
-        sb.append("Total price: $" + String.format("%.2d",total()));
+        sb.append("Total price: $" + String.format("%.2f",total()));
         return sb.toString();
     }
 }
